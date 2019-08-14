@@ -9,7 +9,6 @@ import matplotlib.pyplot as plt
 # import modules.Gas as Gas
 # import modules.BH as BH
 # import matplotlib.patches as patches
-import matplotlib as mpl
 import numpy as np
 # from astropy.cosmology import WMAP9
 from matplotlib.colors import LogNorm
@@ -17,6 +16,7 @@ from matplotlib.colors import LogNorm
 # from matplotlib import rc
 # from matplotlib.cbook import get_sample_data
 # from mpl_toolkits.axes_grid1 import SubplotDivider, LocatableAxes, Size, make_axes_locatable
+from geometry import rectangle_slopes, intersect, find_point_on_line, transform_rectangle, add_circle
 
 path = os.getcwd() + '/'
 T = TrackGalaxy.TrackGalaxy(np.array([67]), '1330-3', Dir=path)
@@ -24,12 +24,15 @@ T = TrackGalaxy.TrackGalaxy(np.array([67]), '1330-3', Dir=path)
 # Read in position, SFR, stellar mass, gas mass, dark matter mass of all the
 # galaxies (and subhalos) from the simulation
 Attrs = T.GetGroups(67, Attrs=['/Subhalo/SubhaloPos', '/Subhalo/SubhaloSFR',
-                    '/Subhalo/SubhaloMassType','/Subhalo/SubhaloHalfmassRad'])
+                    '/Subhalo/SubhaloMassType', '/Subhalo/SubhaloHalfmassRad'])
 Pos = Attrs['/Subhalo/SubhaloPos']  # in comoving kpc/h
 SFR = Attrs['/Subhalo/SubhaloSFR']  # in Msun/yr
-Mstar = Attrs['/Subhalo/SubhaloMassType'][:, 4] * 1e10 / 0.7  # in Msun
-Mgas = Attrs['/Subhalo/SubhaloMassType'][:, 0] * 1e10 / 0.7  # in Msun
-Mdm = Attrs['/Subhalo/SubhaloMassType'][:, 1] * 1e10 / 0.7  # in Msun
+
+factor = 1e10 / 0.7
+
+Mstar = Attrs['/Subhalo/SubhaloMassType'][:, 4] * factor  # in Msun
+Mgas = Attrs['/Subhalo/SubhaloMassType'][:, 0] * factor  # in Msun
+Mdm = Attrs['/Subhalo/SubhaloMassType'][:, 1] * factor  # in Msun
 Rhalf = Attrs['/Subhalo/SubhaloHalfmassRad']  # in comoving kpc/h
 
 #there is a lot of subhalos (thousands), but most of them don't have any stars. So let us just pick out the galaxies with at least Mstar>1e7 Msun:
@@ -121,26 +124,12 @@ y_g = y_gas - yC
 degrees = 10
 radians = math.radians(degrees)
 
-
-def rectangle_slopes(radians):
-    '''Return the 4 slopes of a rectangle.'''
-    a1, a3 = np.tan(radians), np.tan(radians - math.radians(90))
-    a2, a4 = a1, a3
-    return a1, a2, a3, a4
-
-
 # Bridge rectangle ------------------------------------------------------------
 Ba1, Ba2, Ba3, Ba4 = rectangle_slopes(radians)
 
 # BL, BR, TL, TR: Bottom Left, Bottom Right, Top Left, Top Right
 BxBL, ByBL, BxBR, ByBR = -10, -25, 19.544, -19.791
 BxTL, ByTL, BxTR, ByTR = -12, -13, 17.5, -8
-
-
-def intersect(a, x, y):
-    '''Intersection of straight line with y-axis.'''
-    return y - a * x
-
 
 # intersections
 Bb1 = intersect(Ba1, BxBL, ByBL)
@@ -166,15 +155,6 @@ print('ratioB = ', ratioB)
 # areas of galaxy1 and galaxy2 rectangles
 hG, wG = 24, 30  # heights and widths
 AG = hG * wG  # areas (each) = 720
-
-
-def find_point_on_line(a, b, d, m):
-  '''Find new point on straight line with slope m, with a known point (a,b), at a distance to that point, d.'''
-  k = d / np.sqrt(1 + m ** 2)
-  x = a + k
-  y = b + k * m
-  return x, y
-
 
 # Galaxy 1 rectangle (lower)
 G1xBL, G1yBL = 0, -47
@@ -304,26 +284,6 @@ if panel_1:
     plt.savefig(figure_path + 'panel_1.png')
     # plt.show()
     # sys.exit()
-
-
-def transform_rectangle(i, ec, height, coords=[0, 0], width=30):
-    ts = eval("ax{i}.transData")
-    tr = mpl.transforms.Affine2D().rotate_deg_around(coords[0], coords[1],
-                                                     degrees)
-    t = tr + ts
-    rect = mpl.patches.Rectangle((coords[0], coords[1]), width, height,
-                                 linewidth=1, edgecolor=ec, facecolor='none',
-                                 transform=t)
-    exec("ax{i}.add_patch(rect)")
-
-
-def add_circle(j, arr, x, xC, y, yC, c, z):
-    '''Add a circle patch to figure.'''
-    for i in range(len(arr)):
-        circ = plt.Circle((x[i] - xC, y[i] - yC), radius=arr[i], color=c,
-                          fill=False, zorder=z)
-        exec("ax{j}.add_patch(circ)")
-
 
 Range = np.array([(-80, 80), (-80, 80)])
 denom = (160.0 / 100.0) ** 2
