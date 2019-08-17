@@ -44,3 +44,9 @@ def add_circle(j, arr, x, xC, y, yC, c, z):
         circ = plt.Circle((x[i] - xC, y[i] - yC), radius=arr[i], color=c,
                           fill=False, zorder=z)
         exec("ax{j}.add_patch(circ)")
+
+
+if __name__ == '__main__':
+    print(rectangle_slopes(math.radians(70)))
+    print(intersect(.5, 3, 12))
+    print(find_point_on_line(1, 1, 5, .5))
