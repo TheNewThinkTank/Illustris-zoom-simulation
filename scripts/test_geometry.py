@@ -1,5 +1,5 @@
 """
-Unit tests for the geography program
+Unit tests for the geometry program
 """
 
 import geometry
