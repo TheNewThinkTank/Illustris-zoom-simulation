@@ -1,21 +1,32 @@
+
+# Standard library
+# import copy
 import h5py
-# import IPython, astropy, pylab, PIL, sys, copy
 import os
-import math
-import TrackGalaxy
-import matplotlib.pyplot as plt
-# import modules.Image as Image
-# import modules.Stars as Stars
-# import modules.Gas as Gas
-# import modules.BH as BH
-# import matplotlib.patches as patches
-import numpy as np
+# import sys
+
+# Third party
+# import astropy
 # from astropy.cosmology import WMAP9
-from matplotlib.colors import LogNorm
-# from modules.Gas import CalcTandDens
+# import IPython
+import math
 # from matplotlib import rc
 # from matplotlib.cbook import get_sample_data
+from matplotlib.colors import LogNorm
+import matplotlib.pyplot as plt
+# import matplotlib.patches as patches
 # from mpl_toolkits.axes_grid1 import SubplotDivider, LocatableAxes, Size, make_axes_locatable
+import numpy as np
+# import PIL
+# import pylab
+
+# Local application
+# import modules.BH as BH
+# import modules.Gas as Gas
+# from modules.Gas import CalcTandDens
+# import modules.Image as Image
+# import modules.Stars as Stars
+import TrackGalaxy
 from geometry import rectangle_slopes, intersect, find_point_on_line, transform_rectangle, add_circle
 
 path = os.getcwd() + '/'
@@ -35,7 +46,8 @@ Mgas = Attrs['/Subhalo/SubhaloMassType'][:, 0] * factor  # in Msun
 Mdm = Attrs['/Subhalo/SubhaloMassType'][:, 1] * factor  # in Msun
 Rhalf = Attrs['/Subhalo/SubhaloHalfmassRad']  # in comoving kpc/h
 
-#there is a lot of subhalos (thousands), but most of them don't have any stars. So let us just pick out the galaxies with at least Mstar>1e7 Msun:
+# there is a lot of subhalos (thousands), but most of them don't have any stars.
+# So let us just pick out the galaxies with at least (Mstar > 1e7 Msun):
 GoodIDs = np.where(Mstar > 1e7)
 Pos = Pos[GoodIDs]
 SFR = SFR[GoodIDs]
@@ -124,7 +136,7 @@ y_g = y_gas - yC
 degrees = 10
 radians = math.radians(degrees)
 
-# Bridge rectangle ------------------------------------------------------------
+# Bridge rectangle ----------------------------------------------
 Ba1, Ba2, Ba3, Ba4 = rectangle_slopes(radians)
 
 # BL, BR, TL, TR: Bottom Left, Bottom Right, Top Left, Top Right
@@ -150,7 +162,7 @@ RectangleIDs = np.where((y > Ba1 * x + Bb1)
 hB, wB = 12, 30  # height and width
 AB = hB * wB  # area = 360
 ratioB = sum(SFR_gas[Gas_RectangleIDs]) / AB  # 0.000293586789828
-print('ratioB = ', ratioB)
+# print(f'{ratioB =}')
 
 # areas of galaxy1 and galaxy2 rectangles
 hG, wG = 24, 30  # heights and widths
@@ -179,7 +191,7 @@ Gas_G1IDs = np.where((y_g > Ba1 * x_g + G1b1)
                      * (y_g < Ba4 * x_g + G1b4)
                      )
 ratioG1 = sum(SFR_gas[Gas_G1IDs]) / AG  # 0.000649032024383
-print('ratioG1 = ', ratioG1)
+# print(f'{ratioG1 =}')
 
 # Galaxy 2 rectangle (higher)
 G2xBL, G2yBL = -12,-13
@@ -204,7 +216,7 @@ Gas_G2IDs = np.where((y_g > Ba1 * x_g + G2b1)
                      * (y_g < Ba4 * x_g + G2b4)
                      )
 ratioG2 = sum(SFR_gas[Gas_G2IDs]) / AG  # 0.0190599170674
-print('ratioG2 = ', ratioG2)
+# print(f'{ratioG2 =}')
 
 Bins = (100, 100)
 
