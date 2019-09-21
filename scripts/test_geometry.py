@@ -2,8 +2,11 @@
 Unit tests for the geometry program
 """
 
-import geometry
+# Standard library
 import math
+
+# Local application
+import geometry
 
 
 def test_rectangle_slopes():
