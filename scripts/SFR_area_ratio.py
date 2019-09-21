@@ -2,6 +2,7 @@
 # Standard library
 # import copy
 import h5py
+import math
 import os
 # import sys
 
@@ -9,7 +10,6 @@ import os
 # import astropy
 # from astropy.cosmology import WMAP9
 # import IPython
-import math
 # from matplotlib import rc
 # from matplotlib.cbook import get_sample_data
 from matplotlib.colors import LogNorm
