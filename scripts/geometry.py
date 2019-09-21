@@ -1,7 +1,8 @@
-import numpy as np
+
 import math
 import matplotlib as mpl
 import matplotlib.pyplot as plt
+import numpy as np
 
 degrees = 10
 
