@@ -1,13 +1,31 @@
 
+"""
+Module geometry
+================
+This module supplies five functions,
+
+rectangle_slopes(radians) to calculate the 4 slopes of a rectangle tilted from the horizontal axis,
+by an angle given in radians.
+
+intersect(a, x, y) to calculate the intersection of each rectangles side with the vertical axis,
+given the slope and one point on each line.
+
+find_point_on_line(a, b, d, m) to calculate nearest point on each rectangles side (given by slope m),
+with respect to a known point with coordinates (a, b), at a distance d.
+
+transform_rectangle(i, ec, height, coords=[0, 0], width=30) to rotate rectangle by a certain angle wrt. horizontal.
+
+add_circle(j, arr, x, xC, y, yC, c, z) to add a circular patch to a given figure.
+"""
+
+
 # Standard library
 import math
 
-# Third party
+# Third party modules
 import matplotlib as mpl
 import matplotlib.pyplot as plt
 import numpy as np
-
-degrees = 10
 
 
 def rectangle_slopes(radians):
@@ -23,7 +41,7 @@ def intersect(a, x, y):
 
 
 def find_point_on_line(a, b, d, m):
-  '''Find new point on straight line with slope m, with a known point (a,b),
+  '''Find new point on straight line with slope m, with a known point (a, b),
   at a distance to that point, d.'''
   k = d / np.sqrt(1 + m ** 2)
   x = a + k
@@ -31,7 +49,8 @@ def find_point_on_line(a, b, d, m):
   return x, y
 
 
-def transform_rectangle(i, ec, height, coords=[0, 0], width=30):
+def transform_rectangle(degrees, i, ec, height, coords=[0, 0], width=30):
+    '''Transform rectangle.'''
     ts = eval("ax{i}.transData")
     tr = mpl.transforms.Affine2D().rotate_deg_around(coords[0], coords[1],
                                                      degrees)
@@ -43,7 +62,7 @@ def transform_rectangle(i, ec, height, coords=[0, 0], width=30):
 
 
 def add_circle(j, arr, x, xC, y, yC, c, z):
-    '''Add a circle patch to figure.'''
+    '''Add a circular patch to figure.'''
     for i in range(len(arr)):
         circ = plt.Circle((x[i] - xC, y[i] - yC), radius=arr[i], color=c,
                           fill=False, zorder=z)
