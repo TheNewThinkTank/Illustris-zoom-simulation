@@ -28,7 +28,19 @@ import numpy as np
 
 
 def rectangle_slopes(radians):
-    '''Return the 4 slopes of a rectangle.'''
+    """Function to calculate the 4 slopes of a rectangle.
+    First import, and then use, for example:
+
+    >>> from geometry import rectangle_slopes
+    >>> rectangle_slopes(math.radians(70))
+    (2.747477419454621, 2.747477419454621, -0.3639702342662024, -0.3639702342662024)
+
+    :param radians: Angle to calculate the slopes from
+    :type radians: float
+    :return: The 4 calculated slopes
+    :rtype: float
+    """
+    
     a1, a3 = np.tan(radians), np.tan(radians - math.radians(90))
     a2, a4 = a1, a3
     return a1, a2, a3, a4
