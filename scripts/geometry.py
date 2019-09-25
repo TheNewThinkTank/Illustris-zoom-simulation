@@ -18,7 +18,6 @@ transform_rectangle(i, ec, height, coords=[0, 0], width=30) to rotate rectangle 
 add_circle(j, arr, x, xC, y, yC, c, z) to add a circular patch to a given figure.
 """
 
-
 # Standard library
 import math
 
@@ -69,7 +68,12 @@ def add_circle(j, arr, x, xC, y, yC, c, z):
         exec("ax{j}.add_patch(circ)")
 
 
+def main():
+    degrees = 70
+    print(f'{rectangle_slopes(math.radians(degrees))= }')
+    print(f'{intersect(.5, 3, 12)= }')
+    print(f'{find_point_on_line(1, 1, 5, .5)= }')  
+
+
 if __name__ == '__main__':
-    print(rectangle_slopes(math.radians(70)))
-    print(intersect(.5, 3, 12))
-    print(find_point_on_line(1, 1, 5, .5))
+    main()
