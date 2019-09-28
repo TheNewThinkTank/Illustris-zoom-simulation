@@ -20,6 +20,7 @@ add_circle(j, arr, x, xC, y, yC, c, z) to add a circular patch to a given figure
 
 # Standard library
 import math
+from typing import List, Tuple
 
 # Third party modules
 import matplotlib as mpl
@@ -27,7 +28,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 
-def rectangle_slopes(radians):
+def rectangle_slopes(radians: float) -> Tuple:
     """Function to calculate the 4 slopes of a rectangle.
     First import, and then use, for example:
 
@@ -43,24 +44,24 @@ def rectangle_slopes(radians):
     
     a1, a3 = np.tan(radians), np.tan(radians - math.radians(90))
     a2, a4 = a1, a3
-    return a1, a2, a3, a4
+    return (a1, a2, a3, a4)
 
 
-def intersect(a, x, y):
+def intersect(a: float, x: float, y: float) -> float:
     '''Intersection of straight line with y-axis.'''
     return y - a * x
 
 
-def find_point_on_line(a, b, d, m):
+def find_point_on_line(a: float, b: float, d: float, m: float) -> Tuple:
   '''Find new point on straight line with slope m, with a known point (a, b),
   at a distance to that point, d.'''
   k = d / np.sqrt(1 + m ** 2)
   x = a + k
   y = b + k * m
-  return x, y
+  return (x, y)
 
 
-def transform_rectangle(degrees, i, ec, height, coords=[0, 0], width=30):
+def transform_rectangle(degrees: float, i: int, ec: str, height: float, coords: List=[0, 0], width: float=30):
     '''Transform rectangle.'''
     ts = eval("ax{i}.transData")
     tr = mpl.transforms.Affine2D().rotate_deg_around(coords[0], coords[1],
@@ -72,7 +73,7 @@ def transform_rectangle(degrees, i, ec, height, coords=[0, 0], width=30):
     exec("ax{i}.add_patch(rect)")
 
 
-def add_circle(j, arr, x, xC, y, yC, c, z):
+def add_circle(j: int, arr, x, xC, y, yC, c: str, z: int):
     '''Add a circular patch to figure.'''
     for i in range(len(arr)):
         circ = plt.Circle((x[i] - xC, y[i] - yC), radius=arr[i], color=c,
@@ -81,7 +82,7 @@ def add_circle(j, arr, x, xC, y, yC, c, z):
 
 
 def main():
-    degrees = 70
+    degrees: float = 70
     print(f'{rectangle_slopes(math.radians(degrees))= }')
     print(f'{intersect(.5, 3, 12)= }')
     print(f'{find_point_on_line(1, 1, 5, .5)= }')  
