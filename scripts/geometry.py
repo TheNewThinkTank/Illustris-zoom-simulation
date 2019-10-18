@@ -43,8 +43,8 @@ def rectangle_slopes(radians: float) -> Tuple:
     """
     
     a1, a3 = np.tan(radians), np.tan(radians - math.radians(90))
-    a2, a4 = a1, a3
-    return (a1, a2, a3, a4)
+    # a2, a4 = a1, a3
+    return (a1, a1, a3, a3)
 
 
 def intersect(a: float, x: float, y: float) -> float:
@@ -55,9 +55,9 @@ def intersect(a: float, x: float, y: float) -> float:
 def find_point_on_line(a: float, b: float, d: float, m: float) -> Tuple:
   '''Find new point on straight line with slope m, with a known point (a, b),
   at a distance to that point, d.'''
-  k = d / np.sqrt(1 + m ** 2)
-  x = a + k
-  y = b + k * m
+  k: float = d / np.sqrt(1 + m ** 2)
+  x: float = a + k
+  y: float = b + k * m
   return (x, y)
 
 
@@ -68,8 +68,8 @@ def transform_rectangle(degrees: float, i: int, ec: str, height: float, coords: 
                                                      degrees)
     t = tr + ts
     rect = mpl.patches.Rectangle((coords[0], coords[1]), width, height,
-                                 linewidth=1, edgecolor=ec, facecolor='none',
-                                 transform=t)
+                                  linewidth=1, edgecolor=ec, facecolor='none',
+                                  transform=t)
     exec("ax{i}.add_patch(rect)")
 
 
