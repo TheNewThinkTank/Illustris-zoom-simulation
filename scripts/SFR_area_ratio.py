@@ -1,33 +1,19 @@
 
 # Standard library
-# import copy
 import h5py
 import math
 import os
-# import sys
+from typing import Final, Tuple
 
 # Third party
-# import astropy
-# from astropy.cosmology import WMAP9
-# import IPython
-# from matplotlib import rc
-# from matplotlib.cbook import get_sample_data
 from matplotlib.colors import LogNorm
 import matplotlib.pyplot as plt
-# import matplotlib.patches as patches
-# from mpl_toolkits.axes_grid1 import SubplotDivider, LocatableAxes, Size, make_axes_locatable
 import numpy as np
-# import PIL
-# import pylab
 
 # Local application
-# import modules.BH as BH
-# import modules.Gas as Gas
-# from modules.Gas import CalcTandDens
-# import modules.Image as Image
-# import modules.Stars as Stars
 import TrackGalaxy
 from geometry import rectangle_slopes, intersect, find_point_on_line, transform_rectangle, add_circle
+
 
 path = os.getcwd() + '/'
 T = TrackGalaxy.TrackGalaxy(np.array([67]), '1330-3', Dir=path)
@@ -39,7 +25,7 @@ Attrs = T.GetGroups(67, Attrs=['/Subhalo/SubhaloPos', '/Subhalo/SubhaloSFR',
 Pos = Attrs['/Subhalo/SubhaloPos']  # in comoving kpc/h
 SFR = Attrs['/Subhalo/SubhaloSFR']  # in Msun/yr
 
-factor = 1e10 / 0.7
+factor: float = 1e10 / 0.7
 
 Mstar = Attrs['/Subhalo/SubhaloMassType'][:, 4] * factor  # in Msun
 Mgas = Attrs['/Subhalo/SubhaloMassType'][:, 0] * factor  # in Msun
@@ -67,9 +53,9 @@ Filename = 'snapshot_067.hdf5'
 SnapshotFile = h5py.File(Filename,'r')
 
 # Center coordinates of galaxy
-xC = 39937.98
-yC = 34857.863
-zC = 37441.234
+xC: Final = 39937.98
+yC: Final = 34857.863
+zC: Final = 37441.234
 
 # Gas
 Pos0 = SnapshotFile['PartType0/Coordinates'].value
@@ -120,21 +106,21 @@ vy_agn = Vel5[:, 1]
 vz_agn = Vel5[:, 2]
 
 # Switches for figures
-panel_1 = 1
+panel_1 = 0
 panel = 0
 rectangles_and_stars_2dhist = 0
 centered_gas_2dhist = 0
 centered_galaxies_stars = 0
 centered_galaxies_gas = 0
-rectangular_region_stars_2dhist  = 0
+rectangular_region_stars_2dhist = 0
 
-x = x_star - xC
-y = y_star - yC
-x_g = x_gas - xC
-y_g = y_gas - yC
+x: float = x_star - xC
+y: float = y_star - yC
+x_g: float = x_gas - xC
+y_g: float = y_gas - yC
 
-degrees = 10
-radians = math.radians(degrees)
+degrees: float = 10
+radians: float = math.radians(degrees)
 
 # Bridge rectangle ----------------------------------------------
 Ba1, Ba2, Ba3, Ba4 = rectangle_slopes(radians)
@@ -160,7 +146,7 @@ RectangleIDs = np.where((y > Ba1 * x + Bb1)
                         * (y < Ba4 * x + Bb4)
                         )
 hB, wB = 12, 30  # height and width
-AB = hB * wB  # area = 360
+AB: float = hB * wB  # area = 360
 ratioB = sum(SFR_gas[Gas_RectangleIDs]) / AB  # 0.000293586789828
 # print(f'{ratioB =}')
 
@@ -218,7 +204,7 @@ Gas_G2IDs = np.where((y_g > Ba1 * x_g + G2b1)
 ratioG2 = sum(SFR_gas[Gas_G2IDs]) / AG  # 0.0190599170674
 # print(f'{ratioG2 =}')
 
-Bins = (100, 100)
+Bins: Tuple = (100, 100)
 
 if panel_1:
     plt.figure(5, figsize=(19, 8))
