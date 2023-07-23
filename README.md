@@ -1,3 +1,4 @@
+[![GitHub repo size](https://img.shields.io/github/repo-size/TheNewThinkTank/Illustris-zoom-simulation?style=flat&logo=github&logoColor=whitesmoke&label=Repo%20Size)](https://github.com/TheNewThinkTank/Illustris-zoom-simulation/archive/refs/heads/main.zip)
 # Illustris Zoom Simulation
 
 ![](figures/panel_1.png)
