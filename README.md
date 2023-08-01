@@ -1,3 +1,4 @@
+![CI](https://github.com/TheNewThinkTank/Illustris-zoom-simulation/actions/workflows/wf.yml/badge.svg)
 [![GitHub repo size](https://img.shields.io/github/repo-size/TheNewThinkTank/Illustris-zoom-simulation?style=flat&logo=github&logoColor=whitesmoke&label=Repo%20Size)](https://github.com/TheNewThinkTank/Illustris-zoom-simulation/archive/refs/heads/main.zip)
 # Illustris Zoom Simulation
 
