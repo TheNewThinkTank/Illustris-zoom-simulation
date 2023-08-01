@@ -12,7 +12,12 @@ import numpy as np
 
 # Local application
 import TrackGalaxy
-from geometry import rectangle_slopes, intersect, find_point_on_line, transform_rectangle, add_circle
+from geometry import (rectangle_slopes,
+                      intersect,
+                      find_point_on_line,
+                      transform_rectangle,
+                      add_circle
+                      )
 
 
 path = os.getcwd() + '/'

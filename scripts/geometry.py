@@ -4,16 +4,20 @@ Module geometry
 ================
 This module supplies five functions,
 
-rectangle_slopes(radians) to calculate the 4 slopes of a rectangle tilted from the horizontal axis,
+rectangle_slopes(radians) to calculate the 4 slopes of a rectangle,
+tilted from the horizontal axis,
 by an angle given in radians.
 
-intersect(a, x, y) to calculate the intersection of each rectangles side with the vertical axis,
+intersect(a, x, y) to calculate the intersection,
+of each rectangles side with the vertical axis,
 given the slope and one point on each line.
 
-find_point_on_line(a, b, d, m) to calculate nearest point on each rectangles side (given by slope m),
+find_point_on_line(a, b, d, m) to calculate nearest point,
+on each rectangles side (given by slope m),
 with respect to a known point with coordinates (a, b), at a distance d.
 
-transform_rectangle(i, ec, height, coords=[0, 0], width=30) to rotate rectangle by a certain angle wrt. horizontal.
+transform_rectangle(i, ec, height, coords=[0, 0], width=30),
+to rotate rectangle by a certain angle wrt. horizontal.
 
 add_circle(j, arr, x, xC, y, yC, c, z) to add a circular patch to a given figure.
 """
@@ -61,13 +65,19 @@ def find_point_on_line(a: float, b: float, d: float, m: float) -> Tuple:
   return (x, y)
 
 
-def transform_rectangle(degrees: float, i: int, ec: str, height: float, coords: List=[0, 0], width: float=30):
+def transform_rectangle(degrees: float,
+                        i: int,
+                        ec: str,
+                        height: float,
+                        coords: List=[0, 0],
+                        width: float=30
+                        ):
     '''Transform rectangle.'''
     ts = eval("ax{i}.transData")
     tr = mpl.transforms.Affine2D().rotate_deg_around(coords[0], coords[1],
                                                      degrees)
     t = tr + ts
-    rect = mpl.patches.Rectangle((coords[0], coords[1]), width, height,
+    mpl.patches.Rectangle((coords[0], coords[1]), width, height,
                                   linewidth=1, edgecolor=ec, facecolor='none',
                                   transform=t)
     exec("ax{i}.add_patch(rect)")
@@ -76,7 +86,7 @@ def transform_rectangle(degrees: float, i: int, ec: str, height: float, coords: 
 def add_circle(j: int, arr, x, xC, y, yC, c: str, z: int):
     '''Add a circular patch to figure.'''
     for i in range(len(arr)):
-        circ = plt.Circle((x[i] - xC, y[i] - yC), radius=arr[i], color=c,
+        plt.Circle((x[i] - xC, y[i] - yC), radius=arr[i], color=c,
                           fill=False, zorder=z)
         exec("ax{j}.add_patch(circ)")
 
