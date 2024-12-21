@@ -1,21 +1,18 @@
 [tool.poetry]
 name = "Illustris-zoom-simulation"
-version = "0.1.0"
+version = "0.0.1"
 description = "Precise predictions for the formation of structure in the visible matter"
-authors = ["Your Name <you@example.com>"]
+authors = ["Gustav Rasmussen"]
 license = "MIT"
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = "^3.11"
+python = "^3.12"
 # pytest = "^7.4.0"
 # pytest-cov = "^4.1.0"
-flake8 = "^6.1.0"
 ruff = "^0.0.280"
 # mypy = "^1.4.1"
 # wily = "^1.24.2"
-# sphinx = "^7.1.1"
-
 
 [build-system]
 requires = ["poetry-core"]
