@@ -7,12 +7,11 @@ from typing import Final
 # import matplotlib.pyplot as plt
 import numpy as np
 import TrackGalaxy
-from src.rectangle import (rectangle_slopes,
-                      intersect,
-                      find_point_on_line,
-                      transform_rectangle,
-                      add_circle
-                      )
+from src.rectangle import (
+    rectangle_slopes,
+    intersect,
+    find_point_on_line
+    )
 
 path = os.getcwd() + '/'
 T = TrackGalaxy.TrackGalaxy(np.array([67]), '1330-3', Dir=path)

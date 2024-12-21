@@ -2,6 +2,7 @@
 from matplotlib.colors import LogNorm
 import matplotlib.pyplot as plt
 import numpy as np
+import sfr_area_ratio_calc
 
 # Switches for figures
 panel_1 = 0
